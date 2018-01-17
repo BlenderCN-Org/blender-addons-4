@@ -316,6 +316,9 @@ def blen_read_custom_properties(fbx_obj, blen_obj, settings):
                 else:
                     prop_name = fbx_prop.props[0].decode('utf-8')
                     prop_type = fbx_prop.props[1]
+                    if len(prop_name) > 62:
+                        prop_name = prop_name[:62]
+
                     if prop_type in {b'Vector', b'Vector3D', b'Color', b'ColorRGB'}:
                         assert(fbx_prop.props_type[4:7] == bytes((data_types.FLOAT64,)) * 3)
                         blen_obj[prop_name] = fbx_prop.props[4:7]
